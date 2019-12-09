@@ -58,8 +58,7 @@ namespace Demo
             //如果碰撞到了物体  
             if (Physics.Raycast(ray, out hit, 50))
             {
-                //将碰撞的位置赋给准星  
-                reticleCanvas.transform.position = hit.point;
+                SetReticle(hit);
 
                 //视线初次进入  
                 if (hit.transform.gameObject != target)
@@ -78,7 +77,11 @@ namespace Demo
                 {
                     currentTime += Time.deltaTime;
                     //设定时间未结束  
-                    if (countDownTime - currentTime <= 0)
+                    if (countDownTime - currentTime > 0)
+                    {
+                        GazeHover(target);
+                    }
+                    else
                     {
                         currentTime = 0;
                         //GazeClick(target);
@@ -90,10 +93,21 @@ namespace Demo
             {
                 GazeExit(target);
 
-                reticleCanvas.transform.position = originPos;
-                //缩放复位  
+                reticleCanvas.transform.localPosition = originPos;
+                reticleCanvas.transform.localEulerAngles = Vector3.zero;
                 reticleCanvas.transform.localScale = originScale;
             }
+        }
+
+        private void SetReticle(RaycastHit hit)
+        {
+            //将碰撞的位置赋给准星  
+            reticleCanvas.transform.position = hit.point;
+            //根据距离进行缩放，补偿在3d世界中近大远小的情况  
+            reticleCanvas.transform.localScale = originScale * hit.distance;
+
+            //让准星与碰撞的物体垂直通过让准星与击中点法线方向一致  
+            reticleCanvas.transform.forward = hit.normal;
         }
 
         private void GazeEnter(GameObject varObj)
