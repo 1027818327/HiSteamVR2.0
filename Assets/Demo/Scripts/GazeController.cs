@@ -1,7 +1,6 @@
 ﻿using HTC.UnityPlugin.VRModuleManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Demo
 {
@@ -24,7 +23,7 @@ namespace Demo
         //初始缩放  
         private Vector3 originScale;
         //倒计时时间  
-        private float countDownTime = 3;
+        private float countDownTime = 1000;
         //当前时间  
         private float currentTime = 0;
 
@@ -63,11 +62,7 @@ namespace Demo
                 //视线初次进入  
                 if (hit.transform.gameObject != target)
                 {
-                    //如果上次的目标物体不为空，进行移出的操作  
-                    if (target != null)
-                    {
-                        GazeExit(target);
-                    }
+                    GazeExit(target);
 
                     //将击中的目标赋给当前的目标物体  
                     target = hit.transform.gameObject;
@@ -117,7 +112,7 @@ namespace Demo
                 return;
             }
 
-            Debug.Log("GazeEnter");
+            //Debug.Log("GazeEnter");
 
             if (varObj.layer != LayerMask.NameToLayer("UI"))
             {
@@ -135,7 +130,7 @@ namespace Demo
 
         private void GazeExit(GameObject varObj)
         {
-            Debug.Log("GazeExit");
+            //Debug.Log("GazeExit");
 
             if (varObj == null)
             {
@@ -158,7 +153,7 @@ namespace Demo
 
         private void GazeHover(GameObject varObj)
         {
-            Debug.Log("GazeHover");
+            //Debug.Log("GazeHover");
 
             if (varObj == null)
             {
@@ -185,7 +180,7 @@ namespace Demo
 
         private void GazeClick(GameObject varObj)
         {
-            Debug.Log("GazeClick");
+            //Debug.Log("GazeClick");
 
             if (varObj == null)
             {

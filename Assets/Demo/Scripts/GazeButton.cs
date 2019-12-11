@@ -65,21 +65,44 @@ namespace Demo
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            leftImage.fillAmount = 0;
-            rightImage.fillAmount = 0;
-
-            leftImage.gameObject.SetActive(true);
-            rightImage.gameObject.SetActive(true);
+            if (leftImage != null)
+            {
+                leftImage.fillAmount = 0;
+                leftImage.gameObject.SetActive(true);
+            }
+            if (rightImage != null)
+            {
+                rightImage.fillAmount = 0;
+                rightImage.gameObject.SetActive(true);
+            }
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
-            leftImage.gameObject.SetActive(false);
-            rightImage.gameObject.SetActive(false);
+            if (leftImage != null)
+            {
+                leftImage.fillAmount = 0;
+                leftImage.gameObject.SetActive(false);
+            }
+            if (rightImage != null)
+            {
+                rightImage.fillAmount = 0;
+                rightImage.gameObject.SetActive(false);
+            }
         }
 
         public virtual void OnPointerHover(PointerEventData eventData)
         {
+            if (leftImage == null || rightImage == null)
+            {
+                return;
+            }
+
+            if (!leftImage.isActiveAndEnabled || !rightImage.isActiveAndEnabled)
+            {
+                ExecuteEvents.Execute(gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerEnterHandler);
+            }
+
             if (leftImage.fillAmount >= 1f && rightImage.fillAmount >= 1)
             {
                 leftImage.gameObject.SetActive(false);
