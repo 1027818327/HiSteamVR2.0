@@ -87,6 +87,7 @@ namespace Demo
             else
             {
                 GazeExit(target);
+                target = null;
 
                 reticleCanvas.transform.localPosition = originPos;
                 reticleCanvas.transform.localEulerAngles = Vector3.zero;

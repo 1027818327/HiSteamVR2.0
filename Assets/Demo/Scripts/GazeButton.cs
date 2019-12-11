@@ -98,11 +98,6 @@ namespace Demo
                 return;
             }
 
-            if (!leftImage.isActiveAndEnabled || !rightImage.isActiveAndEnabled)
-            {
-                ExecuteEvents.Execute(gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerEnterHandler);
-            }
-
             if (leftImage.fillAmount >= 1f && rightImage.fillAmount >= 1)
             {
                 leftImage.gameObject.SetActive(false);
